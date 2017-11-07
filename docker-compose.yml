@@ -1,0 +1,19 @@
+version: '2'
+services:
+  mysql:
+    build:
+        context: .
+        dockerfile: Dockerfile.mysql
+    volumes:
+        - ${PWD}/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+    environment:
+      SERVICE_NAME: dc-mysql
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: snooper
+      MYSQL_USER: me
+      MYSQL_PASSWORD: root
+      SERVICE_CHECK_TCP: 'true'
+      SERVICE_CHECK_INTERVAL: 1s
+    ports:
+      - 3306:3306
+    network_mode: bridge
